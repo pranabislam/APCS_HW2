@@ -1,87 +1,84 @@
-import java.io.*;
-import java.util.*;
-public class Knight
-{
-    private char[][] board;
-    private int maxX;
-    private int maxY;
-    private char path='#';
-    private char wall=' ';
-    private char me='z';
-    private char exit='$';
-    private char visited = '.';
-    private boolean solved = false;
-    public void delay(int n){
-	try {
+public class Knight{
+    private int[][] board;
+    private boolean solved;
+    private int moves;
+    private int bsize;    
+
+    public Knight(int n){
+	board = new int[n][n];
+	this.bsize = n;
+	this.solved = false;
+	this.moves = 1;
+	for(int y = 0; y < n; y++){
+	    for(int x = 0; x < n; x++){
+		board[y][x] = 0;
+	    }
+	}
+    }
+
+    private void delay(int n)
+    {
+	try{
 	    Thread.sleep(n);
-	} catch (Exception e) {}
-    }
-    public Knight()
-    {
-	maxX=40;
-	maxY=20;
-	board = new char[maxX][maxY];
-	try {
-	    Scanner sc = new Scanner(new File("maze.dat"));
-	    int j=0;
-	    while (sc.hasNext())
-		{
-		    String line = sc.nextLine();
-		    for (int i=0;i<maxX;i++)
-			{
-			    board[i][j] = line.charAt(i);
-			}
-		    j++;
-		}
 	}
-	catch (Exception e)
-	    {
-	    }
+	catch (InterruptedException e) {
+	    System.exit(0);
+	}
     }
-    public String toString()
-    {
-	String s = "[2J\n";
-	for (int y=0;y<maxY;y++)
-	    {
-		for (int x=0;x<maxX;x++)
-		    s = s +board[x][y];
-		s=s+"\n";
-	    }
-	return s;
-    }
-    /*
-      solved - instance variable to indicate we're done
-    */
+
     public void solve(int x, int y){
-	if (board[x][y]==wall ||
-	    board[x][y]==me ||
-	    board[x][y]==visited ||
-	    solved){
-	    return;
-	}
-	if (board[x][y]==exit){
-	    System.out.println(this);
+	int field = bsize * bsize;
+	boolean inBounds = (x >= 0) && (x < bsize) && (y >= 0) && (y < bsize);
+	if(moves - 1 == field){
 	    solved = true;
-	}
-	delay(100);
-	System.out.println(this);
-	board[x][y]=me;
-	solve(x+2,y+1);
-	solve(x-2,y+1);
-	solve(x+2,y-1);
-	solve(x-2,y-1);
-	solve(x+1,y-2);
-	solve(x-1,y+2);
-	solve(x+1,y+2);
-	solve(x-1,y-2);
-	if (!solved){
-	    board[x][y]=visited;
+	    System.out.println(this);
+	    return;
+	}else if(inBounds && board[x][y] == 0){
+	    delay(80);
+	    board[x][y] = moves;
+	    moves += 1;
+	    System.out.println(this);
+	    if(!solved){
+		solve(x+1, y-2);
+	    }
+	    if(!solved){
+		solve(x+1, y+2);
+	    }
+	    if(!solved){
+		solve(x+2, y+1);
+	    }
+	    if(!solved){
+		solve(x+2, y-1);
+	    }
+	    if(!solved){
+		solve(x-1, y+2);
+	    }
+	    if(!solved){
+		solve(x-1, y-2);
+	    }
+	    if(!solved){
+		solve(x-2, y-1);
+	    }
+	    if(!solved){
+		solve(x-2, y+1);
+	    }
 	}
     }
-    public static void main(String[] args){
-	Knight m = new Knight();
-	System.out.println(m);
-	m.solve(1,1);
-	System.out.println(m);
+
+    public String toString(){
+	String info = "[0;0H";
+	for(int y = 0; y < bsize; y++){
+	    for(int x = 0; x < bsize; x++){
+		info += board[y][x] + " ";
+	    }
+	    info += "\n";
+	}
+	return info;
+    }
+    
+    public static void main(String[]args){
+	Knight t = new Knight(5);
+	System.out.println("[2J");
+	t.solve(3,3);
     }
 }
