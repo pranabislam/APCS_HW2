@@ -66,7 +66,7 @@ public class Knight{
     }
 
     public String toString(){
-	String info = "[0;0H";
+	String info = "";
 	for(int y = 0; y < bsize; y++){
 	    for(int x = 0; x < bsize; x++){
 		info += board[y][x] + " ";
@@ -78,7 +78,7 @@ public class Knight{
     
     public static void main(String[]args){
 	Knight t = new Knight(5);
-	System.out.println("[2J");
-	t.solve(3,3);
+	
+	t.solve(3,2);
     }
 }
