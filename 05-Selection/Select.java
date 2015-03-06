@@ -13,7 +13,7 @@ public class Select {
 	    int p = low + (int)((high-low) * Math.random());
 	    p = L[p];
 	    int[] D = new int[high-low+1];
-	    //Filling up tempArray
+	    //Filling up D
 	    int left = 0;
 	    int right = D.length - 1; 
 	    for (int n = low; n <= high; n++) {
