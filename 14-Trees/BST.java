@@ -51,7 +51,20 @@ public class BST{
 	    t2.setLeft(n);
     }
 
-		
+    public String Traverse(Node t){
+	String s;
+	if (t == null){
+	    return "";
+	}
+	
+	else {
+	    s = s + Traverse(t.getLeft());
+	    s = s + t;
+	    s = s + Traverse(t.getRight());
+	}
+    }
+
+
 
     public static void main(String[] args){
 	BST t = new BST();
