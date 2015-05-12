@@ -95,7 +95,7 @@ public class BST{
     }
 
     public int max(Node n){
-	int cmax = n.getData();
+	int cmax = n.getData(); //wrong
 	if (cmax < n.getData()){
 	    cmax = n.getData();
 	} 
@@ -115,6 +115,28 @@ public class BST{
         }
     }
 
+    /*
+      longest path 
+      Diam(Node t){
+       if(t == null){
+       return 0;
+}
+else {
+
+int PL1;
+PL1  = height(t.getleft()) + height(t.getright()) + 2;
+PL2 = Diam(t.getleft());
+PL3 = Diam(t.getright());
+return max(PL1, PL2, PL3);
+}}
+      
+      
+      
+      
+      
+      
+     */ 
+ 
 
     public static void main(String[] args){
 	BST t = new BST();

@@ -65,7 +65,14 @@ public class BST{
     }
 
 
-
+    public int Remove(int x){
+	Node t = null;
+	Node t2 = null;
+	
+	
+	
+	
+    }
     public static void main(String[] args){
 	BST t = new BST();
 	Random r = new Random();
